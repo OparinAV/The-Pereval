@@ -7,6 +7,9 @@ from rest_framework import permissions
 from pereval.views import (
     SubmitDataView,
     PerevalDetailView,
+    SubmitDataDetail,
+    SubmitDataUpdate,
+    SubmitDataUserList,
 )
 
 # Настройки Swagger
@@ -15,7 +18,7 @@ schema_view = get_schema_view(
         title="Pereval-Online API",
         default_version='v1',
         description="API для управления данными о горных перевалах",
-        terms_of_service="https://your-terms-url.com/",
+        terms_of_service="https://your-terms-url.com/  ",
         contact=openapi.Contact(email="great.egor7288@gmail.com"),
         license=openapi.License(name="MIT License"),
     ),
@@ -32,5 +35,7 @@ urlpatterns = [
     # API Endpoints
     path('', RedirectView.as_view(url='/submitData/', permanent=False), name='home'),
     path('submitData/', SubmitDataView.as_view(), name='submit-data'),
-    path('submitData/<int:pk>/', PerevalDetailView.as_view(), name='pereval-detail'),
+    path('submitData/<int:pk>/', SubmitDataDetail.as_view(), name='submit-data-detail'),  # Изменено
+    path('submitData/<int:pk>/update/', SubmitDataUpdate.as_view(), name='submit-data-update'),
+    path('submitData/user/', SubmitDataUserList.as_view(), name='submit-data-user-list'),  # Добавлено
 ]
